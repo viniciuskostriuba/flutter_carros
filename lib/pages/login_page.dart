@@ -1,5 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:carros/pages/home_page.dart';
+import 'package:carros/pages/login_api.dart';
+import 'package:carros/pages/user.dart';
+import 'package:carros/utils/nav.dart';
 import 'package:carros/widgtes/app_button.dart';
 import 'package:carros/widgtes/app_text.dart';
 import 'package:flutter/material.dart';
@@ -72,13 +76,22 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _onClickLogin() {
+  Future<void> _onClickLogin() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
     String login = _controllerLogin.text;
     String senha = _controllerSenha.text;
+
+    User user = await LoginApi.login(login, senha);
+
+    if (user != null) {
+      print(">>> $user");
+      push(context, HomePage());
+    } else {
+      print("Login incorreto");
+    }
   }
 
   String? _validateLogin(String? text) {
