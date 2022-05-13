@@ -1,4 +1,8 @@
+import 'package:carros/pages/church_page.dart';
+import 'package:carros/pages/donation_page.dart';
+import 'package:carros/pages/pray_page.dart';
 import 'package:carros/utils/palette.dart';
+import 'package:carros/widgtes/drawer_list.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const ContainerPage());
@@ -30,18 +34,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Pedir Oração',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Igreja',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Doações',
-      style: optionStyle,
-    ),
+    PrayPage(),
+    ChurchPage(),
+    DonationPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -53,7 +48,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: DrawerList(),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -66,14 +61,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               flexibleSpace: const FlexibleSpaceBar(
                 title: Text('Paróquia'),
                 background: Icon(Icons.church),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 20,
-                child: Center(
-                  child: Text('Scroll to see the SliverAppBar in effect.'),
-                ),
               ),
             ),
             SliverList(
